@@ -4,18 +4,18 @@ services:
   api01: &api
     image: caiquereinhold/caique:rinha-backend
     hostname: api01
-    command: "uvicorn uvicorn_raw:app --host 0.0.0.0 --port 8081 --workers 3 --loop uvloop"
+    command: "uvicorn uvicorn_raw:app --host 0.0.0.0 --port 8081 --workers 3 --loop uvloop --log-level error"
     depends_on:
       - db
     deploy:
       resources:
         limits:
           cpus: "0.3"
-          memory: "150MB"
+          memory: "140MB"
   api02:
     <<: *api
     hostname: api02
-    command: "uvicorn uvicorn_raw:app --host 0.0.0.0 --port 8082 --workers 3 --loop uvloop"
+    command: "uvicorn uvicorn_raw:app --host 0.0.0.0 --port 8082 --workers 3 --loop uvloop --log-level error"
   nginx:
     image: nginx:latest
     volumes:
@@ -45,7 +45,7 @@ services:
       resources:
         limits:
           cpus: "0.6"
-          memory: "240MB"
+          memory: "260MB"
 networks:
   default:
     driver: bridge
